@@ -32,6 +32,7 @@ both build on [Svelte](https://github.com/sveltejs/svelte) ∙
 - there's a 1px black line rendering bug I failed many times to fix -
   I think the numbers are correct but it's tricky because DOM -
   I'll probably change to canvas and hopefully avoid the mess
+- add some cool features, like better persistence, better image importing, and exporting
 - set `ssr: false` after upgrading SvelteKit (smaller bundle?) -
   https://github.com/ryanatkn/mirror-twin-sveltekit-vite/blob/main/svelte.config.cjs#L22
 
