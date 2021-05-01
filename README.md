@@ -26,6 +26,12 @@ both build on [Svelte](https://github.com/sveltejs/svelte) ∙
 
 ![example screenshot of Frida Kahlo mirrored](src/static/images/screenshot_frida_mirrored.jpg)
 
+## todo
+
+- import from a shared library
+- set `ssr: false` after upgrading SvelteKit (smaller bundle?) -
+  https://github.com/ryanatkn/mirror-twin-sveltekit-vite/blob/main/svelte.config.cjs#L22
+
 ## images
 
 - [ada_lovelace.png](/src/static/images/ada_lovelace.png) -
