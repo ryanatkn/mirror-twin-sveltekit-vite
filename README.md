@@ -38,12 +38,12 @@ both build on [Svelte](https://github.com/sveltejs/svelte) ∙
 
 ## images
 
-- [`ada_lovelace.png`](/src/static/images/ada_lovelace.png) -
-  <https://commons.wikimedia.org/wiki/File:Ada_Byron_daguerreotype_by_Antoine_Claudet_1843_or_1850_-_cropped.png>
-- [`alan_turing.jpg`](/src/static/images/alan_turing.jpg) -
-  <https://commons.wikimedia.org/wiki/File:Code_breaker_-_Alan_Turing%27s_Life_and_Legacy_at_London_Science_Museum_(Ank_Kumar)_03.jpg>
-- [`frida_kahlo.jpg`](/src/static/images/frida_kahlo.jpg) -
-  <https://commons.wikimedia.org/wiki/File:Mostra_di_Frida_Kahlo_al_Mudec_di_Milano_3_maggio_2018_(12).jpg>
+- [`src/ada_lovelace.png`](/src/images/ada_lovelace.png):
+  [commons.wikimedia.org](https://commons.wikimedia.org/wiki/File:Ada_Byron_daguerreotype_by_Antoine_Claudet_1843_or_1850_-_cropped.png)
+- [`src/alan_turing.jpg`](/src/images/alan_turing.jpg):
+  [commons.wikimedia.org](<https://commons.wikimedia.org/wiki/File:Code_breaker_-_Alan_Turing%27s_Life_and_Legacy_at_London_Science_Museum_(Ank_Kumar)_03.jpg>)
+- [`src/frida_kahlo.jpg`](/src/images/frida_kahlo.jpg):
+  [commons.wikimedia.org](<https://commons.wikimedia.org/wiki/File:Mostra_di_Frida_Kahlo_al_Mudec_di_Milano_3_maggio_2018_(12).jpg>)
 
 ## license 🐦
 
