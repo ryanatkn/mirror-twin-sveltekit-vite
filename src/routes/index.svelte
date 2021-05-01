@@ -17,6 +17,8 @@
 	<title>{name}</title>
 </svelte:head>
 
+<!-- TODO this browser check is a hack to make the build work,
+	SvelteKit/Vite is buggy and produces two <MirrorTwins/> on the page  -->
 {#if browser}
 	<MirrorTwins {images} {width} {height} />
 {/if}
