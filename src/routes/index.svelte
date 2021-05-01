@@ -2,6 +2,7 @@
 	import MirrorTwins from '$lib/MirrorTwins.svelte';
 	import {createImagesStore} from '$lib/imagesStore';
 	import {defaultImages} from '$lib/defaultImages';
+	import {browser} from '$app/env';
 
 	export let name = 'mirror-twin-sveltekit-vite';
 
@@ -16,5 +17,7 @@
 	<title>{name}</title>
 </svelte:head>
 
-<MirrorTwins {images} {width} {height} />
+{#if browser}
+	<MirrorTwins {images} {width} {height} />
+{/if}
 <svelte:window bind:innerHeight={height} bind:innerWidth={width} />
