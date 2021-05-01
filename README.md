@@ -22,7 +22,7 @@ both build on [Svelte](https://github.com/sveltejs/svelte) ∙
 > has a dependency on Gro for tasks like
 > [`gro deploy`](https://github.com/feltcoop/gro/blob/main/src/docs/deploy.md),
 > but the build is owned by SvelteKit and Vite —
-> see the scripts in [`package.json`](package.json)
+> see the wrapped scripts in [`package.json`](package.json)
 
 ![example screenshot of Frida Kahlo mirrored](src/static/images/screenshot_frida_mirrored.jpg)
 
