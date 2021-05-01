@@ -3,7 +3,7 @@
 	import {createImagesStore} from '$lib/imagesStore';
 	import {defaultImages} from '$lib/defaultImages';
 
-	export let name = 'mirror twins';
+	export let name = 'mirror-twin-sveltekit-vite';
 
 	const images = createImagesStore(defaultImages);
 
