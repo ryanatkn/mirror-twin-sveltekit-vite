@@ -5,7 +5,7 @@
 > with a focus on faces 😑
 > [ryanatkn.github.io/mirror-twin-sveltekit-vite](https://ryanatkn.github.io/mirror-twin-sveltekit-vite)
 
-this is a little one page web app with _two_ implementations:
+this is a little one page web app with two implementations:
 
 | 🐢                                                               | tech                                                                                  | 🕸️                                                                                                       |
 | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
