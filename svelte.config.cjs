@@ -18,6 +18,8 @@ module.exports = {
 		paths: {base: toSvelteKitBasePath(pkg, dev)},
 		appDir: 'app', // because _app is ignored by GitHub pages by default
 		files: {assets: 'src/static'},
+		// TODO try to do this again after upgrading, doesn't respect `paths.base`
+		// ssr: false, // https://kit.svelte.dev/docs#configuration-ssr
 		vite: {
 			ssr: {
 				noExternal: Object.keys(pkg.dependencies || {}),

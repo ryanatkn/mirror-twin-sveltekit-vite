@@ -1,17 +1,30 @@
 {
-  "name": "felt-template",
-  "description": "a static website template with SvelteKit, Gro, and Felt",
-  "version": "0.0.1",
-  "type": "module",
-  "engines": {
-    "node": ">= 14.16.0"
-  },
+  "name": "@ryanatkn/mirror-twin-sveltekit-vite",
+  "description": "play with image bilateral symmetry, with a focus on faces: SvelteKit and Vite version",
+  "license": "Unlicense",
+  "version": "0.0.0",
   "scripts": {
     "dev": "gro dev",
     "build": "gro build",
     "test": "gro test",
     "start": "gro start",
     "deploy": "gro deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanatkn/mirror-twin-sveltekit-vite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ryanatkn/mirror-twin-sveltekit-vite/issues"
+  },
+  "author": {
+    "name": "Ryan Atkinson",
+    "email": "mail@ryanatkn.com",
+    "url": "https://ryanatkn.com"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=14.16"
   },
   "devDependencies": {
     "@feltcoop/gro": "^0.21.5",
@@ -23,7 +36,7 @@
     "svelte-preprocess-esbuild": "^2.0.0",
     "tslib": "^2.2.0",
     "typescript": "^4.2.4",
-    "vite": "^2.1.0"
+    "vite": "^2.2.1"
   },
   "prettier": {
     "useTabs": true,

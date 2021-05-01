@@ -1,32 +1,20 @@
 <script lang="ts">
-	import Mreows from '$lib/Mreows.svelte';
+	import MirrorTwins from '$lib/MirrorTwins.svelte';
+	import {createImagesStore} from '$lib/imagesStore';
+	import {defaultImages} from '$lib/defaultImages';
+
+	export let name = 'mirror twins';
+
+	const images = createImagesStore(defaultImages);
+
+	// TODO do this better
+	let width = typeof window === 'undefined' ? 0 : window.innerWidth;
+	let height = typeof window === 'undefined' ? 0 : window.innerHeight;
 </script>
 
-<main>
-	<h1>felt-template</h1>
-	<Mreows />
-</main>
+<svelte:head>
+	<title>{name}</title>
+</svelte:head>
 
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: lowercase;
-		font-size: 4rem;
-		font-weight: 100;
-		line-height: 1.1;
-		margin: 4rem auto;
-		max-width: 14rem;
-	}
-
-	@media (min-width: 480px) {
-		h1 {
-			max-width: none;
-		}
-	}
-</style>
+<MirrorTwins {images} {width} {height} />
+<svelte:window bind:innerHeight={height} bind:innerWidth={width} />

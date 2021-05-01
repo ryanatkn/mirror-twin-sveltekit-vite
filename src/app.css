@@ -1,4 +1,24 @@
-:root {
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-		'Open Sans', 'Helvetica Neue', sans-serif;
+/* TODO css normalizer (felt? gro?) */
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	background-color: #000;
+	color: rgba(255, 245, 245, 0.9);
+	padding: 0;
+	margin: 0;
+	font-family: sans-serif;
+	font-size: 20px;
+}
+
+#svelte {
+	height: 100%;
 }
