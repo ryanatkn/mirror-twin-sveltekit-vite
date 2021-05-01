@@ -1,0 +1,12 @@
+.DS_Store
+node_modules
+/.svelte
+/build
+/functions
+
+/.gro
+/dist
+*.ignore
+*.ignore.*
+ignore/
+*.pem
