@@ -18,8 +18,7 @@ both build on [Svelte](https://github.com/sveltejs/svelte) ∙
 [Rollup](https://github.com/rollup/rollup) ∙
 [esbuild](https://github.com/evanw/esbuild)
 
-> **note**: this version of `mirror-twins`
-> has a dependency on Gro for tasks like
+> **note**: this version has a dependency on Gro for tasks like
 > [`gro deploy`](https://github.com/feltcoop/gro/blob/main/src/docs/deploy.md),
 > but the build is owned by SvelteKit and Vite —
 > see the wrapped scripts in [`package.json`](package.json)
