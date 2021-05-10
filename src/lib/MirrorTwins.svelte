@@ -136,6 +136,6 @@
 		opacity: 1;
 	}
 	.url {
-		width: 120px;
+		width: 150px;
 	}
 </style>
