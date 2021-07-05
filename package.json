@@ -1,0 +1,55 @@
+{
+  "name": "@ryanatkn/mirror-twin-sveltekit-vite",
+  "description": "play with image bilateral symmetry, with a focus on faces: SvelteKit and Vite version",
+  "license": "Unlicense",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "gro dev",
+    "build": "gro build",
+    "deploy": "gro deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanatkn/mirror-twin-sveltekit-vite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ryanatkn/mirror-twin-sveltekit-vite/issues"
+  },
+  "author": {
+    "name": "Ryan Atkinson",
+    "email": "mail@ryanatkn.com",
+    "url": "https://ryanatkn.com"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=14.16"
+  },
+  "devDependencies": {
+    "@feltcoop/gro": "^0.28.3",
+    "@sveltejs/adapter-static": "^1.0.0-next.13",
+    "@sveltejs/kit": "^1.0.0-next.120",
+    "prettier": "^2.3.2",
+    "prettier-plugin-svelte": "^2.3.1",
+    "svelte": "^3.38.3",
+    "svelte-preprocess-esbuild": "^2.0.0",
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.5"
+  },
+  "prettier": {
+    "useTabs": true,
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "bracketSpacing": false,
+    "svelteSortOrder": "options-scripts-markup-styles",
+    "svelteBracketNewLine": true,
+    "overrides": [
+      {
+        "files": "package.json",
+        "options": {
+          "useTabs": false
+        }
+      }
+    ]
+  }
+}
