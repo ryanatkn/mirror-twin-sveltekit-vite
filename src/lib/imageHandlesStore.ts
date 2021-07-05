@@ -28,7 +28,7 @@ export type ImageHandleMovement = [ImageHandleName, number]; // number is a delt
 
 // TODO refactor..? how? seems kinda hacky with the derived store usage
 export const createImageHandlesStore = <
-	TDimensions extends Readable<{width: number; height: number}>
+	TDimensions extends Readable<{width: number; height: number}>,
 >(
 	dimensions: TDimensions,
 ): ImageHandlesStore => {

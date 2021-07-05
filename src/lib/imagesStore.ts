@@ -1,6 +1,5 @@
 import {writable} from 'svelte/store';
 import type {Writable} from 'svelte/store';
-import type {OmitStrict} from '@feltcoop/gro';
 
 export interface ImageInfo {
 	name: string;
@@ -12,7 +11,7 @@ export interface ImageInfo {
 
 export interface ImagesStore {
 	subscribe: Writable<ImageInfo[]>['subscribe'];
-	updateOne: (name: string, partial: Partial<OmitStrict<ImageInfo, 'name'>>) => void;
+	updateOne: (name: string, partial: Partial<Omit<ImageInfo, 'name'>>) => void;
 	findByName: (name: string) => ImageInfo | undefined;
 	load: (name: string) => ImageInfo;
 }
