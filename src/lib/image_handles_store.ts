@@ -1,6 +1,6 @@
 import {derived} from 'svelte/store';
 import type {Writable, Readable} from 'svelte/store';
-import {Unreachable_Error} from '@feltcoop/felt/util/error';
+import {Unreachable_Error} from '@feltcoop/felt/util/error.js';
 
 // TODO rename this to something like `Rect_Selection`?
 
