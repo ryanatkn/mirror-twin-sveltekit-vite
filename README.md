@@ -12,7 +12,7 @@ this is a little one page web app with two implementations:
 | `mirror-twin-sveltekit-vite`                                     | [SvelteKit](https://github.com/sveltejs/kit) ∙ [Vite](https://github.com/vitejs/vite) | [`ryanatkn.github.io/mirror-twin-sveltekit-vite`](https://ryanatkn.github.io/mirror-twin-sveltekit-vite) |
 | [`mirror-twin-gro`](https://github.com/ryanatkn/mirror-twin-gro) | [Gro](https://github.com/feltcoop/gro)                                                | [`ryanatkn.github.io/mirror-twin-gro`](https://ryanatkn.github.io/mirror-twin-gro)                       |
 
-# :turtle:<sub>:turtle:</sub><sub><sub>:turtle:</sub></sub>
+## credits 🐢<sub>🐢</sub><sub><sub>🐢</sub></sub>
 
 both build on [Svelte](https://github.com/sveltejs/svelte) ∙
 [Rollup](https://github.com/rollup/rollup) ∙
