@@ -1,7 +1,7 @@
 import {writable} from 'svelte/store';
 import type {Writable} from 'svelte/store';
 
-export interface ImageInfo {
+export interface Image_Info {
 	name: string;
 	url: string;
 	el: HTMLImageElement | null;
@@ -9,24 +9,25 @@ export interface ImageInfo {
 	height: number | null;
 }
 
-export interface ImagesStore {
-	subscribe: Writable<ImageInfo[]>['subscribe'];
-	updateOne: (name: string, partial: Partial<Omit<ImageInfo, 'name'>>) => void;
-	findByName: (name: string) => ImageInfo | undefined;
-	load: (name: string) => ImageInfo;
+export interface Images_Store {
+	subscribe: Writable<Image_Info[]>['subscribe'];
+	update_one: (name: string, partial: Partial<Omit<Image_Info, 'name'>>) => void;
+	find_by_name: (name: string) => Image_Info | undefined;
+	load: (name: string) => Image_Info;
 }
 
-export const createImagesStore = (initialValue: ImageInfo[]): ImagesStore => {
-	const {subscribe, update} = writable(initialValue);
+export const create_images_store = (initial_value: Image_Info[]): Images_Store => {
+	const {subscribe, update} = writable(initial_value);
 
-	let currentValue: ImageInfo[];
+	let current_value: Image_Info[];
 	subscribe((v) => {
-		currentValue = v;
+		current_value = v;
 	});
 
-	const findByName: ImagesStore['findByName'] = (name) => currentValue.find((i) => i.name === name);
+	const find_by_name: Images_Store['find_by_name'] = (name) =>
+		current_value.find((i) => i.name === name);
 
-	const updateOne: ImagesStore['updateOne'] = (name, partial) => {
+	const update_one: Images_Store['update_one'] = (name, partial) => {
 		update((images) =>
 			images.map((i) => {
 				if (i.name === name) {
@@ -40,21 +41,21 @@ export const createImagesStore = (initialValue: ImageInfo[]): ImagesStore => {
 
 	return {
 		subscribe,
-		updateOne,
-		findByName,
-		load: (name: string): ImageInfo => {
-			const image = findByName(name);
+		update_one,
+		find_by_name,
+		load: (name: string): Image_Info => {
+			const image = find_by_name(name);
 			if (!image) throw Error(`Cannot find image with name ${name}`);
 			if (image.el) return image; // already loading or loaded - TODO state machine could tighten things up
-			const imageEl = typeof window === 'undefined' ? ({} as any) : new Image(); // TODO how?
-			updateOne(name, {
-				el: imageEl,
+			const image_el = typeof window === 'undefined' ? ({} as any) : new Image(); // TODO how?
+			update_one(name, {
+				el: image_el,
 			});
-			imageEl.src = image.url;
-			imageEl.onload = () => {
-				updateOne(name, {
-					width: imageEl.width,
-					height: imageEl.height,
+			image_el.src = image.url;
+			image_el.onload = () => {
+				update_one(name, {
+					width: image_el.width,
+					height: image_el.height,
 				});
 			};
 			return image;

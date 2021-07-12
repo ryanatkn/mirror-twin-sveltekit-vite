@@ -1,8 +1,8 @@
-import type {ImageInfo} from './images_store';
+import type {Image_Info} from './images_store';
 
 export const CUSTOM_IMAGE_NAME = 'custom image url';
 
-const createImage = (name: string, url: string) => ({
+const create_image = (name: string, url: string) => ({
 	name,
 	url,
 	el: null,
@@ -11,9 +11,9 @@ const createImage = (name: string, url: string) => ({
 });
 
 // TODO causes errors on the server, is hacked to fix
-export const default_images: ImageInfo[] = [
-	createImage('Ada Lovelace', 'images/ada_lovelace.png'),
-	createImage('Alan Turing', 'images/alan_turing.jpg'),
-	createImage('Frida Kahlo', 'images/frida_kahlo.jpg'),
-	createImage(CUSTOM_IMAGE_NAME, ''),
+export const default_images: Image_Info[] = [
+	create_image('Ada Lovelace', 'images/ada_lovelace.png'),
+	create_image('Alan Turing', 'images/alan_turing.jpg'),
+	create_image('Frida Kahlo', 'images/frida_kahlo.jpg'),
+	create_image(CUSTOM_IMAGE_NAME, ''),
 ];

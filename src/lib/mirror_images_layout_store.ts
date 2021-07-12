@@ -1,33 +1,33 @@
 import {derived} from 'svelte/store';
 import type {Readable} from 'svelte/store';
 
-import type {Source_ImageLayoutStore} from './source_image_layout_store';
-import type {Mirror_TwinsLayoutStore} from './mirror_twins_layout_store';
-import type {Source_ImageSelectionStore} from './source_image_selection_store';
+import type {Source_Image_Layout_Store} from './source_image_layout_store';
+import type {Mirror_Twins_Layout_Store} from './mirror_twins_layout_store';
+import type {Source_Image_Selection_Store} from './source_image_selection_store';
 
-export interface Mirror_ImagesLayoutStore {
-	subscribe: Readable<null | Mirror_ImagesLayout>['subscribe'];
+export interface Mirror_Images_Layout_Store {
+	subscribe: Readable<null | Mirror_Images_Layout>['subscribe'];
 }
 
 // These dimensions are scaled to rendered screen coordinates.
-export interface Mirror_ImagesLayout {
+export interface Mirror_Images_Layout {
 	scale: number;
-	imageWidth: number;
-	imageHeight: number;
+	image_width: number;
+	image_height: number;
 }
 
-export const createMirror_ImagesLayoutStore = (
-	layout: Mirror_TwinsLayoutStore,
-	sourceImageLayout: Source_ImageLayoutStore,
-	sourceImageSelection: Source_ImageSelectionStore,
-): Mirror_ImagesLayoutStore => {
+export const create_mirror_images_layout_store = (
+	layout: Mirror_Twins_Layout_Store,
+	source_image_layout: Source_Image_Layout_Store,
+	source_image_selection: Source_Image_Selection_Store,
+): Mirror_Images_Layout_Store => {
 	const {subscribe} = derived<
-		[Mirror_TwinsLayoutStore, Source_ImageLayoutStore, Source_ImageSelectionStore],
-		Mirror_ImagesLayout | null
+		[Mirror_Twins_Layout_Store, Source_Image_Layout_Store, Source_Image_Selection_Store],
+		Mirror_Images_Layout | null
 	>(
-		[layout, sourceImageLayout, sourceImageSelection],
-		([$layout, $sourceImageLayout, $sourceImageSelection]) => {
-			if (!$layout || !$sourceImageLayout || !$sourceImageSelection) {
+		[layout, source_image_layout, source_image_selection],
+		([$layout, $source_image_layout, $source_image_selection]) => {
+			if (!$layout || !$source_image_layout || !$source_image_selection) {
 				return null;
 			}
 
@@ -35,15 +35,15 @@ export const createMirror_ImagesLayoutStore = (
 			// and convert it back to the unscaled image coordinates
 			const scale = Math.min(
 				1,
-				$layout.mirrorContainerWidth / 2 / $sourceImageSelection.width,
-				$layout.mirrorContainerHeight / $sourceImageSelection.height,
+				$layout.mirror_container_width / 2 / $source_image_selection.width,
+				$layout.mirror_container_height / $source_image_selection.height,
 			);
-			const imageWidth = Math.floor($sourceImageSelection.width * scale);
-			const imageHeight = Math.floor($sourceImageSelection.height * scale);
+			const image_width = Math.floor($source_image_selection.width * scale);
+			const image_height = Math.floor($source_image_selection.height * scale);
 			return {
 				scale,
-				imageHeight,
-				imageWidth,
+				image_height,
+				image_width,
 			};
 		},
 	);

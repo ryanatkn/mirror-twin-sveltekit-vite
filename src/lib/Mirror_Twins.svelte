@@ -3,12 +3,12 @@
 	// import {randomItem} from '@feltcoop/gro/dist/utils/random';
 
 	import Mirror_Twin_Images from './Mirror_Twin_Images.svelte';
-	import {createMirror_TwinsLayoutStore} from './mirror_twins_layout_store';
-	import {createImage_HandlesStore} from './image_handles_store';
-	import {createSource_ImageLayoutStore} from './source_image_layout_store';
-	import {createSource_ImageSelectionStore} from './source_image_selection_store';
-	import {createMirror_ImagesLayoutStore} from './mirror_images_layout_store';
-	import type {ImagesStore} from './images_store';
+	import {create_mirror_twins_layout_store} from './mirror_twins_layout_store';
+	import {create_image_handles_store} from './image_handles_store';
+	import {create_source_image_layout_store} from './source_image_layout_store';
+	import {create_source_image_selection_store} from './source_image_selection_store';
+	import {create_mirror_images_layout_store} from './mirror_images_layout_store';
+	import type {Images_Store} from './images_store';
 	import {CUSTOM_IMAGE_NAME} from './default_images';
 
 	/*
@@ -23,10 +23,10 @@
 
 	export let width: number;
 	export let height: number;
-	export let images: ImagesStore;
+	export let images: Images_Store;
 
-	const controlsHeight = 130;
-	$: contentHeight = height - controlsHeight;
+	const controls_height = 130;
+	$: content_height = height - controls_height;
 
 	// We're storing the selected image by name instead of just the object
 	// because we use immutable objects for the images,
@@ -36,67 +36,68 @@
 	// because we could bind the select to the store itself,
 	// but passing stores down as props fails due to this bug:
 	// https://github.com/sveltejs/svelte/issues/3662
-	let selectedImageName = $images[2].name;
-	$: image = $images && images.findByName(selectedImageName);
-	$: images.load(selectedImageName);
-	$: imageLoaded = !!(image && image.width !== null);
+	let selected_image_name = $images[2].name;
+	$: image = $images && images.find_by_name(selected_image_name);
+	$: images.load(selected_image_name);
+	$: image_loaded = !!(image && image.width !== null);
 
-	const layout = createMirror_TwinsLayoutStore();
-	$: imageLoaded && layout.compute(image!, width, contentHeight);
-	$: layoutState = $layout;
+	const layout = create_mirror_twins_layout_store();
+	$: image_loaded && layout.compute(image!, width, content_height);
+	$: layout_state = $layout;
 
-	const sourceImageLayout = createSource_ImageLayoutStore(layout);
-	$: sourceImageLayoutState = $sourceImageLayout;
-	const sourceImageDimensions = derived(sourceImageLayout, ($sourceImageLayout) => ({
-		width: ($sourceImageLayout && $sourceImageLayout.width) || 0,
-		height: ($sourceImageLayout && $sourceImageLayout.height) || 0,
+	const source_image_layout = create_source_image_layout_store(layout);
+	$: source_image_layout_state = $source_image_layout;
+	const source_image_dimensions = derived(source_image_layout, ($source_image_layout) => ({
+		width: ($source_image_layout && $source_image_layout.width) || 0,
+		height: ($source_image_layout && $source_image_layout.height) || 0,
 	}));
 	// TODO store handles data for each image
-	const handles = createImage_HandlesStore(sourceImageDimensions);
-	const sourceImageSelection = createSource_ImageSelectionStore(sourceImageLayout, handles);
-	$: sourceImageSelectionState = $sourceImageSelection;
-	const mirrorImagesLayout = createMirror_ImagesLayoutStore(
+	const handles = create_image_handles_store(source_image_dimensions);
+	const source_image_selection = create_source_image_selection_store(source_image_layout, handles);
+	$: source_image_selectionState = $source_image_selection;
+	const mirror_images_layout = create_mirror_images_layout_store(
 		layout,
-		sourceImageLayout,
-		sourceImageSelection,
+		source_image_layout,
+		source_image_selection,
 	);
-	$: mirrorImagesLayoutState = $mirrorImagesLayout;
+	$: mirror_images_layout_state = $mirror_images_layout;
 </script>
 
 <div class="mirror-twins" style="height: {height}px; width: {width}px;">
 	<!-- TODO maybe put these in togglable overlay? or always show? -->
-	<div class="controls" style="height: {controlsHeight}px;">
+	<div class="controls" style="height: {controls_height}px;">
 		<form>
 			{#each $images as image (image.name)}
-				<label class="control" class:selected={image.name === selectedImageName}
+				<label class="control" class:selected={image.name === selected_image_name}
 					><input
 						type="radio"
-						bind:group={selectedImageName}
+						bind:group={selected_image_name}
 						value={image.name}
 					/>{#if image.name === CUSTOM_IMAGE_NAME}<input
 							class="url"
 							type="text"
-							on:input={(e) => images.updateOne(image.name, {url: e.currentTarget.value})}
+							on:input={(e) => images.update_one(image.name, {url: e.currentTarget.value})}
 							placeholder={image.name}
 							on:focus={() => {
 								// TODO does it matter if we do this check?
-								if (selectedImageName !== CUSTOM_IMAGE_NAME) selectedImageName = CUSTOM_IMAGE_NAME;
+								if (selected_image_name !== CUSTOM_IMAGE_NAME)
+									selected_image_name = CUSTOM_IMAGE_NAME;
 							}}
 						/>{:else}{image.name}{/if}</label
 				>
 			{/each}
 		</form>
 	</div>
-	{#if layoutState && image && sourceImageLayoutState && sourceImageSelectionState && mirrorImagesLayoutState}
+	{#if layout_state && image && source_image_layout_state && source_image_selectionState && mirror_images_layout_state}
 		<Mirror_Twin_Images
 			{image}
-			height={contentHeight}
-			layout={layoutState}
+			height={content_height}
+			layout={layout_state}
 			handles={$handles}
-			sourceImageLayout={sourceImageLayoutState}
-			sourceImageSelection={sourceImageSelectionState}
-			mirrorImagesLayout={mirrorImagesLayoutState}
-			moveHandles={handles.move}
+			source_image_layout={source_image_layout_state}
+			source_image_selection={source_image_selectionState}
+			mirror_images_layout={mirror_images_layout_state}
+			move_handles={handles.move}
 		/>
 	{/if}
 	<!-- TODO should we pass the handles store down instead? -->

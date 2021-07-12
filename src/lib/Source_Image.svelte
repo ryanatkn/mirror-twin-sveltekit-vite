@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Image_Handles from './Image_Handles.svelte';
-	import type {Image_HandleMovement, Image_HandlesState} from './image_handles_store';
-	import type {ImageInfo} from './images_store';
+	import type {Image_Handle_Movement, Image_Handles_State} from './image_handles_store';
+	import type {Image_Info} from './images_store';
 
-	export let image: ImageInfo;
+	export let image: Image_Info;
 	export let width: number;
 	export let height: number;
 	export let scale: number;
@@ -13,14 +13,14 @@
 	// TODO probably refactor this, renaming the component and making `Source_Image` just the image
 
 	// TODO it seems this information should live in `Image_Handles`,
-	// but we need it to calculate `bgRects`
+	// but we need it to calculate `bg_rects`
 	// .. so should the handles component expose its own data to this parent? or should it remain "controlled"
-	export let handles: Image_HandlesState;
-	export let moveHandles: (movements: Image_HandleMovement[]) => void;
+	export let handles: Image_Handles_State;
+	export let move_handles: (movements: Image_Handle_Movement[]) => void;
 
 	// Emphasize the cropped area by partially obscuring the excluded image area.
 	// It's probably better to do this with svg, but 4 divs is fine.
-	$: bgRects = [
+	$: bg_rects = [
 		{
 			left: 0,
 			top: 0,
@@ -57,14 +57,14 @@
 		style="width: {image.width}px; height: {image.height}px; background-image:
 		url({image.url}); transform: scale3d({scale}, {scale}, 1);"
 	/>
-	{#each bgRects as bgRect}
+	{#each bg_rects as bgRect}
 		<div
 			class="bg-rect"
 			style="left: {bgRect.left}px; top: {bgRect.top}px; width: {bgRect.width}px;
 			height: {bgRect.height}px;"
 		/>
 	{/each}
-	<Image_Handles {handles} {moveHandles} containerWidth={width} containerHeight={height} />
+	<Image_Handles {handles} {move_handles} container_width={width} container_height={height} />
 </div>
 
 <style>

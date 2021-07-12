@@ -1,15 +1,15 @@
 import {derived} from 'svelte/store';
 import type {Readable} from 'svelte/store';
 
-import type {Mirror_TwinsLayoutStore} from './mirror_twins_layout_store';
+import type {Mirror_Twins_Layout_Store} from './mirror_twins_layout_store';
 
-export interface Source_ImageLayoutStore {
-	subscribe: Readable<null | Source_ImageLayout>['subscribe'];
+export interface Source_Image_Layout_Store {
+	subscribe: Readable<null | Source_Image_Layout>['subscribe'];
 }
 
 // Except for wrapperWidth and wrapperHeight,
 // these dimensions are scaled to rendered screen coordinates.
-export interface Source_ImageLayout {
+export interface Source_Image_Layout {
 	scale: number;
 	width: number;
 	height: number;
@@ -27,31 +27,31 @@ const PADDING_RIGHT = HANDLE_SIZE / 2;
 const PADDING_TOP = BUTTON_SIZE + HANDLE_SIZE / 2;
 const PADDING_BOTTOM = 0;
 
-export const createSource_ImageLayoutStore = (
-	layout: Mirror_TwinsLayoutStore,
-): Source_ImageLayoutStore => {
-	const {subscribe} = derived<Mirror_TwinsLayoutStore, Source_ImageLayout | null>(
+export const create_source_image_layout_store = (
+	layout: Mirror_Twins_Layout_Store,
+): Source_Image_Layout_Store => {
+	const {subscribe} = derived<Mirror_Twins_Layout_Store, Source_Image_Layout | null>(
 		layout,
 		($layout) => {
 			if (!$layout) return null;
 
-			const availableImageWidth = $layout.sourceContainerWidth - PADDING_LEFT - PADDING_RIGHT;
+			const available_image_width = $layout.source_container_width - PADDING_LEFT - PADDING_RIGHT;
 
-			const availableImageHeight = $layout.sourceContainerHeight - PADDING_TOP - PADDING_BOTTOM;
+			const available_image_height = $layout.source_container_height - PADDING_TOP - PADDING_BOTTOM;
 
 			const scale = Math.min(
 				1,
-				availableImageWidth / $layout.imageWidth,
-				availableImageHeight / $layout.imageHeight,
+				available_image_width / $layout.image_width,
+				available_image_height / $layout.image_height,
 			);
-			const width = Math.floor($layout.imageWidth * scale);
-			const height = Math.floor($layout.imageHeight * scale);
+			const width = Math.floor($layout.image_width * scale);
+			const height = Math.floor($layout.image_height * scale);
 
 			const x1 = Math.floor(
-				$layout.sourceContainerWidth / 2 - width / 2 + (PADDING_LEFT - PADDING_RIGHT),
+				$layout.source_container_width / 2 - width / 2 + (PADDING_LEFT - PADDING_RIGHT),
 			);
 			const x2 = x1 + width;
-			const y1 = $layout.sourceContainerHeight - height;
+			const y1 = $layout.source_container_height - height;
 			const y2 = y1 + height;
 
 			return {

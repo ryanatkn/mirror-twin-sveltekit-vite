@@ -1,19 +1,23 @@
 <script lang="ts">
-	import type {Image_HandlesState, ImageXHandleName, ImageYHandleName} from './image_handles_store';
+	import type {
+		Image_Handles_State,
+		Image_X_Handle_Name,
+		Image_Y_Handle_Name,
+	} from './image_handles_store';
 
-	export let xHandle: ImageXHandleName;
-	export let yHandle: ImageYHandleName;
-	export let handles: Image_HandlesState;
-	export let startDragging: (e: any, xHandle: any, yHandle: any) => void; // TODO types
+	export let x_handle: Image_X_Handle_Name;
+	export let y_handle: Image_Y_Handle_Name;
+	export let handles: Image_Handles_State;
+	export let start_dragging: (e: any, x_handle: any, y_handle: any) => void; // TODO types
 	export let hovering: boolean;
 	export let dragging: boolean;
 	export let size: number;
 
-	$: x = handles[xHandle] - size / 2;
-	$: y = handles[yHandle] - size / 2;
+	$: x = handles[x_handle] - size / 2;
+	$: y = handles[y_handle] - size / 2;
 
-	const onMouseDown = (e: MouseEvent) => {
-		startDragging(e, xHandle, yHandle);
+	const on_mousedown = (e: MouseEvent) => {
+		start_dragging(e, x_handle, y_handle);
 	};
 </script>
 
@@ -22,7 +26,7 @@
 	class:hovering
 	class:dragging
 	style="transform: translate3d({x}px, {y}px, 0); width: {size}px; height: {size}px;"
-	on:mousedown={onMouseDown}
+	on:mousedown={on_mousedown}
 />
 
 <style>

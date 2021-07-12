@@ -4,17 +4,17 @@
 	import Image_Pan_Handle from './Image_Pan_Handle.svelte';
 	import Image_Pan_Buttons from './Image_Pan_Buttons.svelte';
 	import type {
-		Image_HandlesState,
-		ImageXHandleName,
-		ImageYHandleName,
-		Image_HandleName,
-		Image_HandleMovement,
+		Image_Handles_State,
+		Image_X_Handle_Name,
+		Image_Y_Handle_Name,
+		Image_Handle_Name,
+		Image_Handle_Movement,
 	} from './image_handles_store';
 
-	export let handles: Image_HandlesState; // TODO what are the tradeoffs of making this a store?
-	export let moveHandles: (movements: Image_HandleMovement[]) => void;
-	export let containerWidth: number;
-	export let containerHeight: number;
+	export let handles: Image_Handles_State; // TODO what are the tradeoffs of making this a store?
+	export let move_handles: (movements: Image_Handle_Movement[]) => void;
+	export let container_width: number;
+	export let container_height: number;
 
 	export let size = 40;
 
@@ -26,20 +26,20 @@
 
 	let dragging = false;
 	let panning = false;
-	let activeXHandle: ImageXHandleName | null = null;
-	let activeYHandle: ImageYHandleName | null = null;
-	let activeSideHandle: Image_HandleName | null = null;
-	let hoveringSideHandle: Image_HandleName | null = null;
-	let hoveringPanHandle = false;
-	let lastClientX: number | null = null;
-	let lastClientY: number | null = null;
+	let active_x_handle: Image_X_Handle_Name | null = null;
+	let active_y_handle: Image_Y_Handle_Name | null = null;
+	let active_side_handle: Image_Handle_Name | null = null;
+	let hovering_side_handle: Image_Handle_Name | null = null;
+	let hovering_pan_handle = false;
+	let last_client_x: number | null = null;
+	let last_client_y: number | null = null;
 
 	// TODO maybe move this function to the store?
 	// problem is then we'd also want to move "resize" to the store,
 	// and a generic "resize" function is more difficult to write cleanly,
 	// and we don't want to pass down 9 resize and 5 pan functions as props...
 	const pan = (dx: number, dy: number): void => {
-		let movements: Image_HandleMovement[] | null = null;
+		let movements: Image_Handle_Movement[] | null = null;
 		if (dx) {
 			if (dy) {
 				movements = [
@@ -61,180 +61,184 @@
 			];
 		}
 		if (movements) {
-			moveHandles(movements);
+			move_handles(movements);
 		}
 	};
-	const panLeft = (dx: number): void => pan(-dx, 0);
-	const panRight = (dx: number): void => pan(dx, 0);
-	const panUp = (dy: number): void => pan(0, -dy);
-	const panDown = (dy: number): void => pan(0, dy);
+	const pan_left = (dx: number): void => pan(-dx, 0);
+	const pan_right = (dx: number): void => pan(dx, 0);
+	const pan_up = (dy: number): void => pan(0, -dy);
+	const pan_down = (dy: number): void => pan(0, dy);
 
 	// TODO factor out dragging?
-	const startDragging = (
+	const start_dragging = (
 		e: MouseEvent,
-		xHandle: ImageXHandleName,
-		yHandle: ImageYHandleName,
+		x_handle: Image_X_Handle_Name,
+		y_handle: Image_Y_Handle_Name,
 	): void => {
 		dragging = true;
-		activeXHandle = xHandle;
-		activeYHandle = yHandle;
-		lastClientX = e.clientX;
-		lastClientY = e.clientY;
+		active_x_handle = x_handle;
+		active_y_handle = y_handle;
+		last_client_x = e.clientX;
+		last_client_y = e.clientY;
 	};
-	const startDraggingSide = (e: MouseEvent, handle: Image_HandleName): void => {
+	const start_dragging_side = (e: MouseEvent, handle: Image_Handle_Name): void => {
 		dragging = true;
-		activeSideHandle = handle;
-		lastClientX = e.clientX;
-		lastClientY = e.clientY;
+		active_side_handle = handle;
+		last_client_x = e.clientX;
+		last_client_y = e.clientY;
 	};
-	const startPanning = (e: MouseEvent): void => {
+	const start_panning = (e: MouseEvent): void => {
 		dragging = true;
 		panning = true;
-		lastClientX = e.clientX;
-		lastClientY = e.clientY;
+		last_client_x = e.clientX;
+		last_client_y = e.clientY;
 	};
-	const stopDragging = (_e: MouseEvent): void => {
+	const stop_dragging = (_e: MouseEvent): void => {
 		if (!dragging) return;
 		dragging = false;
 		panning = false;
-		activeYHandle = null;
-		activeYHandle = null;
-		activeSideHandle = null;
-		lastClientX = null;
-		lastClientY = null;
+		active_y_handle = null;
+		active_y_handle = null;
+		active_side_handle = null;
+		last_client_x = null;
+		last_client_y = null;
 	};
-	const onMouseMove = (e: MouseEvent): void => {
+	const on_mousemove = (e: MouseEvent): void => {
 		if (!dragging) return;
 		if (panning) {
-			const dx = e.clientX - lastClientX!;
-			const dy = e.clientY - lastClientY!;
+			const dx = e.clientX - last_client_x!;
+			const dy = e.clientY - last_client_y!;
 			pan(dx, dy);
-			lastClientX = e.clientX;
-			lastClientY = e.clientY;
-		} else if (activeSideHandle === 'x1' || activeSideHandle === 'x2') {
-			const dx = e.clientX - lastClientX!;
-			moveHandles([[activeSideHandle, dx]]);
-			lastClientX = e.clientX;
-		} else if (activeSideHandle === 'y1' || activeSideHandle === 'y2') {
-			const dy = e.clientY - lastClientY!;
-			moveHandles([[activeSideHandle, dy]]);
-			lastClientY = e.clientY;
+			last_client_x = e.clientX;
+			last_client_y = e.clientY;
+		} else if (active_side_handle === 'x1' || active_side_handle === 'x2') {
+			const dx = e.clientX - last_client_x!;
+			move_handles([[active_side_handle, dx]]);
+			last_client_x = e.clientX;
+		} else if (active_side_handle === 'y1' || active_side_handle === 'y2') {
+			const dy = e.clientY - last_client_y!;
+			move_handles([[active_side_handle, dy]]);
+			last_client_y = e.clientY;
 		} else {
-			const dx = e.clientX - lastClientX!;
-			const dy = e.clientY - lastClientY!;
-			moveHandles([
-				[activeXHandle!, dx],
-				[activeYHandle!, dy],
+			const dx = e.clientX - last_client_x!;
+			const dy = e.clientY - last_client_y!;
+			move_handles([
+				[active_x_handle!, dx],
+				[active_y_handle!, dy],
 			]);
-			lastClientX = e.clientX;
-			lastClientY = e.clientY;
+			last_client_x = e.clientX;
+			last_client_y = e.clientY;
 		}
 	};
-	const hoverSideHandle = (sideHandle: Image_HandleName): void => {
-		hoveringSideHandle = sideHandle;
+	const hover_side_handle = (side_handle: Image_Handle_Name): void => {
+		hovering_side_handle = side_handle;
 	};
-	const unhoverSideHandle = (_sideHandle: Image_HandleName): void => {
-		hoveringSideHandle = null;
+	const unhover_side_handle = (_side_handle: Image_Handle_Name): void => {
+		hovering_side_handle = null;
 	};
 </script>
 
-<svelte:window on:mouseup={stopDragging} on:mousemove={onMouseMove} on:mouseleave={stopDragging} />
+<svelte:window
+	on:mouseup={stop_dragging}
+	on:mousemove={on_mousemove}
+	on:mouseleave={stop_dragging}
+/>
 
 <div class="image-handles">
 	<Image_Pan_Handle
 		{handles}
-		{startPanning}
-		hover={() => (hoveringPanHandle = true)}
-		unhover={() => (hoveringPanHandle = false)}
+		{start_panning}
+		hover={() => (hovering_pan_handle = true)}
+		unhover={() => (hovering_pan_handle = false)}
 	/>
-	<Image_Pan_Buttons {panLeft} {panRight} {panUp} {panDown} />
+	<Image_Pan_Buttons {pan_left} {pan_right} {pan_up} {pan_down} />
 	<Image_Side_Handle
 		handle={'x1'}
 		{handles}
 		{size}
-		{containerWidth}
-		{containerHeight}
-		startDragging={startDraggingSide}
-		hover={hoverSideHandle}
-		unhover={unhoverSideHandle}
+		{container_width}
+		{container_height}
+		start_dragging={start_dragging_side}
+		hover={hover_side_handle}
+		unhover={unhover_side_handle}
 	/>
 	<Image_Side_Handle
 		handle={'x2'}
 		{handles}
 		{size}
-		{containerWidth}
-		{containerHeight}
-		startDragging={startDraggingSide}
-		hover={hoverSideHandle}
-		unhover={unhoverSideHandle}
+		{container_width}
+		{container_height}
+		start_dragging={start_dragging_side}
+		hover={hover_side_handle}
+		unhover={unhover_side_handle}
 	/>
 	<Image_Side_Handle
 		handle={'y1'}
 		{handles}
 		{size}
-		{containerWidth}
-		{containerHeight}
-		startDragging={startDraggingSide}
-		hover={hoverSideHandle}
-		unhover={unhoverSideHandle}
+		{container_width}
+		{container_height}
+		start_dragging={start_dragging_side}
+		hover={hover_side_handle}
+		unhover={unhover_side_handle}
 	/>
 	<Image_Side_Handle
 		handle={'y2'}
 		{handles}
 		{size}
-		{containerWidth}
-		{containerHeight}
-		startDragging={startDraggingSide}
-		hover={hoverSideHandle}
-		unhover={unhoverSideHandle}
+		{container_width}
+		{container_height}
+		start_dragging={start_dragging_side}
+		hover={hover_side_handle}
+		unhover={unhover_side_handle}
 	/>
 	<Image_Handle
-		xHandle={'x1'}
-		yHandle={'y1'}
+		x_handle={'x1'}
+		y_handle={'y1'}
 		{handles}
-		{startDragging}
+		{start_dragging}
 		{size}
 		dragging={panning ||
-			(activeXHandle === 'x1' && activeYHandle === 'y1') ||
-			activeSideHandle === 'x1' ||
-			activeSideHandle === 'y1'}
-		hovering={hoveringPanHandle || hoveringSideHandle === 'x1' || hoveringSideHandle === 'y1'}
+			(active_x_handle === 'x1' && active_y_handle === 'y1') ||
+			active_side_handle === 'x1' ||
+			active_side_handle === 'y1'}
+		hovering={hovering_pan_handle || hovering_side_handle === 'x1' || hovering_side_handle === 'y1'}
 	/>
 	<Image_Handle
-		xHandle={'x2'}
-		yHandle={'y1'}
+		x_handle={'x2'}
+		y_handle={'y1'}
 		{handles}
-		{startDragging}
+		{start_dragging}
 		{size}
 		dragging={panning ||
-			(activeXHandle === 'x2' && activeYHandle === 'y1') ||
-			activeSideHandle === 'x2' ||
-			activeSideHandle === 'y1'}
-		hovering={hoveringPanHandle || hoveringSideHandle === 'x2' || hoveringSideHandle === 'y1'}
+			(active_x_handle === 'x2' && active_y_handle === 'y1') ||
+			active_side_handle === 'x2' ||
+			active_side_handle === 'y1'}
+		hovering={hovering_pan_handle || hovering_side_handle === 'x2' || hovering_side_handle === 'y1'}
 	/>
 	<Image_Handle
-		xHandle={'x1'}
-		yHandle={'y2'}
+		x_handle={'x1'}
+		y_handle={'y2'}
 		{handles}
-		{startDragging}
+		{start_dragging}
 		{size}
 		dragging={panning ||
-			(activeXHandle === 'x1' && activeYHandle === 'y2') ||
-			activeSideHandle === 'x1' ||
-			activeSideHandle === 'y2'}
-		hovering={hoveringPanHandle || hoveringSideHandle === 'x1' || hoveringSideHandle === 'y2'}
+			(active_x_handle === 'x1' && active_y_handle === 'y2') ||
+			active_side_handle === 'x1' ||
+			active_side_handle === 'y2'}
+		hovering={hovering_pan_handle || hovering_side_handle === 'x1' || hovering_side_handle === 'y2'}
 	/>
 	<Image_Handle
-		xHandle={'x2'}
-		yHandle={'y2'}
+		x_handle={'x2'}
+		y_handle={'y2'}
 		{handles}
-		{startDragging}
+		{start_dragging}
 		{size}
 		dragging={panning ||
-			(activeXHandle === 'x2' && activeYHandle === 'y2') ||
-			activeSideHandle === 'x2' ||
-			activeSideHandle === 'y2'}
-		hovering={hoveringPanHandle || hoveringSideHandle === 'x2' || hoveringSideHandle === 'y2'}
+			(active_x_handle === 'x2' && active_y_handle === 'y2') ||
+			active_side_handle === 'x2' ||
+			active_side_handle === 'y2'}
+		hovering={hovering_pan_handle || hovering_side_handle === 'x2' || hovering_side_handle === 'y2'}
 	/>
 </div>
 

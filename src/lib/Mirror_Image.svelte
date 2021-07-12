@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type {ImageInfo} from './images_store';
+	import type {Image_Info} from './images_store';
 
 	// TODO think more about which components should be responsible for positioning
 
@@ -9,68 +9,68 @@
 	// Maybe we should draw a 2px slice at the midpoint?
 	// Or play with the scaling factor and rounding, to see if that fixes it?
 
-	export let image: ImageInfo;
-	export let selectionX: number;
-	export let selectionY: number;
-	export let selectionWidth: number;
-	export let selectionHeight: number;
-	export let isLeft: boolean;
+	export let image: Image_Info;
+	export let selection_x: number;
+	export let selection_y: number;
+	export let selection_width: number;
+	export let selection_height: number;
+	export let is_left: boolean;
 
-	$: wrapperStyle = `width: ${selectionWidth}px; height: ${selectionHeight}px;`;
-	$: leftHalfStyle = calcImageStyle(
+	$: wrapper_style = `width: ${selection_width}px; height: ${selection_height}px;`;
+	$: left_half_style = calc_image_style(
 		true,
-		isLeft,
+		is_left,
 		image,
-		selectionX,
-		selectionY,
-		selectionWidth,
-		selectionHeight,
+		selection_x,
+		selection_y,
+		selection_width,
+		selection_height,
 	);
-	$: rightHalfStyle = calcImageStyle(
+	$: right_half_style = calc_image_style(
 		false,
-		isLeft,
+		is_left,
 		image,
-		selectionX,
-		selectionY,
-		selectionWidth,
-		selectionHeight,
+		selection_x,
+		selection_y,
+		selection_width,
+		selection_height,
 	);
 
-	const calcImageStyle = (
-		isLeftHalf: boolean,
-		isLeft: boolean,
-		image: ImageInfo,
-		selectionX: number,
-		selectionY: number,
-		selectionWidth: number,
-		selectionHeight: number,
+	const calc_image_style = (
+		is_left_half: boolean,
+		is_left: boolean,
+		image: Image_Info,
+		selection_x: number,
+		selection_y: number,
+		selection_width: number,
+		selection_height: number,
 	) => {
 		let transform;
-		let bgPosition;
-		if (isLeftHalf) {
-			transform = isLeft ? '' : 'transform: rotate3d(0, 1, 0, 180deg);';
-			bgPosition = isLeft
-				? `background-position: ${image.width! - selectionX}px ${-selectionY}px;`
+		let bg_position;
+		if (is_left_half) {
+			transform = is_left ? '' : 'transform: rotate3d(0, 1, 0, 180deg);';
+			bg_position = is_left
+				? `background-position: ${image.width! - selection_x}px ${-selection_y}px;`
 				: `background-position: ${
-						image.width! - selectionX - selectionWidth / 2
-				  }px ${-selectionY}px;`;
+						image.width! - selection_x - selection_width / 2
+				  }px ${-selection_y}px;`;
 		} else {
-			transform = isLeft ? 'transform: rotate3d(0, 1, 0, 180deg);' : '';
-			bgPosition = isLeft
-				? `background-position: ${image.width! - selectionX}px ${-selectionY}px;`
+			transform = is_left ? 'transform: rotate3d(0, 1, 0, 180deg);' : '';
+			bg_position = is_left
+				? `background-position: ${image.width! - selection_x}px ${-selection_y}px;`
 				: `background-position: ${
-						image.width! - selectionX - selectionWidth / 2
-				  }px ${-selectionY}px;`;
+						image.width! - selection_x - selection_width / 2
+				  }px ${-selection_y}px;`;
 		}
-		return `width: ${selectionWidth / 2}px; height: ${selectionHeight}px; background-image: url(${
+		return `width: ${selection_width / 2}px; height: ${selection_height}px; background-image: url(${
 			image.url
-		}); ${bgPosition} ${transform}`;
+		}); ${bg_position} ${transform}`;
 	};
 </script>
 
-<div class="mirror-image" style={wrapperStyle}>
-	<div style={leftHalfStyle} />
-	<div style={rightHalfStyle} />
+<div class="mirror-image" style={wrapper_style}>
+	<div style={left_half_style} />
+	<div style={right_half_style} />
 </div>
 
 <style>
