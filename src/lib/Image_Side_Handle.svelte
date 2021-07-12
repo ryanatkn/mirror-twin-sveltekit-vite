@@ -1,21 +1,25 @@
 <script lang="ts">
-	import type {ImageHandleName, ImageHandlesState} from './imageHandlesStore';
+	import type {Image_Handle_Name, Image_Handles_State} from './image_handles_store';
 
-	export let handle: ImageHandleName;
-	export let handles: ImageHandlesState;
+	export let handle: Image_Handle_Name;
+	export let handles: Image_Handles_State;
 	export let size: number;
-	export let containerWidth: number;
-	export let containerHeight: number;
-	export let startDragging: (e: MouseEvent, handle: ImageHandleName) => void;
-	export let hover: (sideHandle: ImageHandleName) => void;
-	export let unhover: (sideHandle: ImageHandleName) => void;
+	export let container_width: number;
+	export let container_height: number;
+	export let start_dragging: (e: MouseEvent, handle: Image_Handle_Name) => void;
+	export let hover: (side_handle: Image_Handle_Name) => void;
+	export let unhover: (side_handle: Image_Handle_Name) => void;
 
-	$: style = calcStyle(handle, handles, size);
+	$: style = calc_style(handle, handles, size);
 
 	// TODO these are recalculated every update because of `handles`,
 	// but 1/4 of that work is usually wasted.
 	// It's not a perf problem, but I'm curious how it can be cleanly avoided.
-	const calcStyle = (handle: ImageHandleName, handles: ImageHandlesState, size: number): string => {
+	const calc_style = (
+		handle: Image_Handle_Name,
+		handles: Image_Handles_State,
+		size: number,
+	): string => {
 		let width, height, x, y;
 		switch (handle) {
 			case 'x1':
@@ -52,7 +56,7 @@
 <div
 	class="side-handle"
 	{style}
-	on:mousedown={(e) => startDragging(e, handle)}
+	on:mousedown={(e) => start_dragging(e, handle)}
 	on:mouseenter={() => hover(handle)}
 	on:mouseleave={() => unhover(handle)}
 />
