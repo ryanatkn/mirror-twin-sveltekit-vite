@@ -1,29 +1,29 @@
 import {derived} from 'svelte/store';
 import type {Readable} from 'svelte/store';
 
-import type {SourceImageLayoutStore} from './sourceImageLayoutStore';
-import type {MirrorTwinsLayoutStore} from './mirrorTwinsLayoutStore';
-import type {SourceImageSelectionStore} from './sourceImageSelectionStore';
+import type {Source_ImageLayoutStore} from './source_image_layout_store';
+import type {Mirror_TwinsLayoutStore} from './mirror_twins_layout_store';
+import type {Source_ImageSelectionStore} from './source_image_selection_store';
 
-export interface MirrorImagesLayoutStore {
-	subscribe: Readable<null | MirrorImagesLayout>['subscribe'];
+export interface Mirror_ImagesLayoutStore {
+	subscribe: Readable<null | Mirror_ImagesLayout>['subscribe'];
 }
 
 // These dimensions are scaled to rendered screen coordinates.
-export interface MirrorImagesLayout {
+export interface Mirror_ImagesLayout {
 	scale: number;
 	imageWidth: number;
 	imageHeight: number;
 }
 
-export const createMirrorImagesLayoutStore = (
-	layout: MirrorTwinsLayoutStore,
-	sourceImageLayout: SourceImageLayoutStore,
-	sourceImageSelection: SourceImageSelectionStore,
-): MirrorImagesLayoutStore => {
+export const createMirror_ImagesLayoutStore = (
+	layout: Mirror_TwinsLayoutStore,
+	sourceImageLayout: Source_ImageLayoutStore,
+	sourceImageSelection: Source_ImageSelectionStore,
+): Mirror_ImagesLayoutStore => {
 	const {subscribe} = derived<
-		[MirrorTwinsLayoutStore, SourceImageLayoutStore, SourceImageSelectionStore],
-		MirrorImagesLayout | null
+		[Mirror_TwinsLayoutStore, Source_ImageLayoutStore, Source_ImageSelectionStore],
+		Mirror_ImagesLayout | null
 	>(
 		[layout, sourceImageLayout, sourceImageSelection],
 		([$layout, $sourceImageLayout, $sourceImageSelection]) => {

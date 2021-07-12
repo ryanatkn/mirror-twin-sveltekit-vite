@@ -2,14 +2,14 @@
 	import {derived} from 'svelte/store';
 	// import {randomItem} from '@feltcoop/gro/dist/utils/random';
 
-	import MirrorTwinImages from './MirrorTwinImages.svelte';
-	import {createMirrorTwinsLayoutStore} from './mirrorTwinsLayoutStore';
-	import {createImageHandlesStore} from './imageHandlesStore';
-	import {createSourceImageLayoutStore} from './sourceImageLayoutStore';
-	import {createSourceImageSelectionStore} from './sourceImageSelectionStore';
-	import {createMirrorImagesLayoutStore} from './mirrorImagesLayoutStore';
-	import type {ImagesStore} from './imagesStore';
-	import {CUSTOM_IMAGE_NAME} from './defaultImages';
+	import Mirror_Twin_Images from './Mirror_Twin_Images.svelte';
+	import {createMirror_TwinsLayoutStore} from './mirror_twins_layout_store';
+	import {createImage_HandlesStore} from './image_handles_store';
+	import {createSource_ImageLayoutStore} from './source_image_layout_store';
+	import {createSource_ImageSelectionStore} from './source_image_selection_store';
+	import {createMirror_ImagesLayoutStore} from './mirror_images_layout_store';
+	import type {ImagesStore} from './images_store';
+	import {CUSTOM_IMAGE_NAME} from './default_images';
 
 	/*
 
@@ -41,21 +41,21 @@
 	$: images.load(selectedImageName);
 	$: imageLoaded = !!(image && image.width !== null);
 
-	const layout = createMirrorTwinsLayoutStore();
+	const layout = createMirror_TwinsLayoutStore();
 	$: imageLoaded && layout.compute(image!, width, contentHeight);
 	$: layoutState = $layout;
 
-	const sourceImageLayout = createSourceImageLayoutStore(layout);
+	const sourceImageLayout = createSource_ImageLayoutStore(layout);
 	$: sourceImageLayoutState = $sourceImageLayout;
 	const sourceImageDimensions = derived(sourceImageLayout, ($sourceImageLayout) => ({
 		width: ($sourceImageLayout && $sourceImageLayout.width) || 0,
 		height: ($sourceImageLayout && $sourceImageLayout.height) || 0,
 	}));
 	// TODO store handles data for each image
-	const handles = createImageHandlesStore(sourceImageDimensions);
-	const sourceImageSelection = createSourceImageSelectionStore(sourceImageLayout, handles);
+	const handles = createImage_HandlesStore(sourceImageDimensions);
+	const sourceImageSelection = createSource_ImageSelectionStore(sourceImageLayout, handles);
 	$: sourceImageSelectionState = $sourceImageSelection;
-	const mirrorImagesLayout = createMirrorImagesLayoutStore(
+	const mirrorImagesLayout = createMirror_ImagesLayoutStore(
 		layout,
 		sourceImageLayout,
 		sourceImageSelection,
@@ -88,7 +88,7 @@
 		</form>
 	</div>
 	{#if layoutState && image && sourceImageLayoutState && sourceImageSelectionState && mirrorImagesLayoutState}
-		<MirrorTwinImages
+		<Mirror_Twin_Images
 			{image}
 			height={contentHeight}
 			layout={layoutState}

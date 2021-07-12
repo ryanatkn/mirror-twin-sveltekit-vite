@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type {ImageInfo} from './imagesStore';
-	import MirrorImage from './MirrorImage.svelte';
+	import type {ImageInfo} from './images_store';
+	import Mirror_Image from './Mirror_Image.svelte';
 
 	// TODO think more about which components should be responsible for positioning
 
@@ -24,8 +24,8 @@
 </script>
 
 <div class="mirror-images" {style}>
-	<MirrorImage {image} {selectionX} {selectionY} {selectionWidth} {selectionHeight} isLeft={true} />
-	<MirrorImage
+	<Mirror_Image {image} {selectionX} {selectionY} {selectionWidth} {selectionHeight} isLeft={true} />
+	<Mirror_Image
 		{image}
 		{selectionX}
 		{selectionY}

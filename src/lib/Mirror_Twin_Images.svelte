@@ -1,27 +1,27 @@
 <script lang="ts">
-	import SourceImage from './SourceImage.svelte';
-	import MirrorImages from './MirrorImages.svelte';
-	import type {ImageInfo} from './imagesStore';
-	import type {ImageHandleMovement, ImageHandlesState} from './imageHandlesStore';
-	import type {MirrorTwinsLayout} from './mirrorTwinsLayoutStore';
-	import type {SourceImageLayout} from './sourceImageLayoutStore';
-	import type {SourceImageSelection} from './sourceImageSelectionStore';
-	import type {MirrorImagesLayout} from './mirrorImagesLayoutStore';
+	import Source_Image from './Source_Image.svelte';
+	import Mirror_Images from './Mirror_Images.svelte';
+	import type {ImageInfo} from './images_store';
+	import type {Image_HandleMovement, Image_HandlesState} from './image_handles_store';
+	import type {Mirror_TwinsLayout} from './mirror_twins_layout_store';
+	import type {Source_ImageLayout} from './source_image_layout_store';
+	import type {Source_ImageSelection} from './source_image_selection_store';
+	import type {Mirror_ImagesLayout} from './mirror_images_layout_store';
 
 	export let height: number;
-	export let layout: MirrorTwinsLayout; // TODO what are the tradeoffs of making this a store?
-	export let sourceImageLayout: SourceImageLayout;
-	export let sourceImageSelection: SourceImageSelection;
-	export let mirrorImagesLayout: MirrorImagesLayout;
+	export let layout: Mirror_TwinsLayout; // TODO what are the tradeoffs of making this a store?
+	export let sourceImageLayout: Source_ImageLayout;
+	export let sourceImageSelection: Source_ImageSelection;
+	export let mirrorImagesLayout: Mirror_ImagesLayout;
 
 	export let image: ImageInfo;
-	export let handles: ImageHandlesState;
-	export let moveHandles: (movements: ImageHandleMovement[]) => void;
+	export let handles: Image_HandlesState;
+	export let moveHandles: (movements: Image_HandleMovement[]) => void;
 </script>
 
 <div class="mirror-twin-images" style="height: {height}px;">
 	<div class="source-image-wrapper" style="height: {layout.sourceContainerHeight}px">
-		<SourceImage
+		<Source_Image
 			{image}
 			{handles}
 			{moveHandles}
@@ -33,7 +33,7 @@
 		/>
 	</div>
 	<div class="mirror-images-wrapper" style="height: {layout.mirrorContainerHeight}px">
-		<MirrorImages
+		<Mirror_Images
 			{image}
 			containerWidth={layout.mirrorContainerWidth}
 			selectionX={sourceImageSelection.x1}

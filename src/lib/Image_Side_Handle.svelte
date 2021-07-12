@@ -1,21 +1,21 @@
 <script lang="ts">
-	import type {ImageHandleName, ImageHandlesState} from './imageHandlesStore';
+	import type {Image_HandleName, Image_HandlesState} from './image_handles_store';
 
-	export let handle: ImageHandleName;
-	export let handles: ImageHandlesState;
+	export let handle: Image_HandleName;
+	export let handles: Image_HandlesState;
 	export let size: number;
 	export let containerWidth: number;
 	export let containerHeight: number;
-	export let startDragging: (e: MouseEvent, handle: ImageHandleName) => void;
-	export let hover: (sideHandle: ImageHandleName) => void;
-	export let unhover: (sideHandle: ImageHandleName) => void;
+	export let startDragging: (e: MouseEvent, handle: Image_HandleName) => void;
+	export let hover: (sideHandle: Image_HandleName) => void;
+	export let unhover: (sideHandle: Image_HandleName) => void;
 
 	$: style = calcStyle(handle, handles, size);
 
 	// TODO these are recalculated every update because of `handles`,
 	// but 1/4 of that work is usually wasted.
 	// It's not a perf problem, but I'm curious how it can be cleanly avoided.
-	const calcStyle = (handle: ImageHandleName, handles: ImageHandlesState, size: number): string => {
+	const calcStyle = (handle: Image_HandleName, handles: Image_HandlesState, size: number): string => {
 		let width, height, x, y;
 		switch (handle) {
 			case 'x1':

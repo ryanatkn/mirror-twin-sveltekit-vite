@@ -1,15 +1,15 @@
 import {writable} from 'svelte/store';
 import type {Writable} from 'svelte/store';
 
-import type {ImageInfo} from './imagesStore';
+import type {ImageInfo} from './images_store';
 
-export interface MirrorTwinsLayoutStore {
-	subscribe: Writable<null | MirrorTwinsLayout>['subscribe'];
+export interface Mirror_TwinsLayoutStore {
+	subscribe: Writable<null | Mirror_TwinsLayout>['subscribe'];
 	compute: (image: ImageInfo, width: number, height: number) => void;
 }
 
 // These dimensions are unscaled screen coordinates.
-export interface MirrorTwinsLayout {
+export interface Mirror_TwinsLayout {
 	width: number;
 	height: number;
 	imageWidth: number;
@@ -27,8 +27,8 @@ export interface MirrorTwinsLayout {
 // it's needed for both the main image and the sub images, and includes the layout
 // information of how much space is given to each section, and assumes the vertical layout
 // TODO rename? `layout`?
-export const createMirrorTwinsLayoutStore = (): MirrorTwinsLayoutStore => {
-	const {subscribe, set} = writable<null | MirrorTwinsLayout>(null);
+export const createMirror_TwinsLayoutStore = (): Mirror_TwinsLayoutStore => {
+	const {subscribe, set} = writable<null | Mirror_TwinsLayout>(null);
 
 	return {
 		subscribe,
@@ -42,7 +42,7 @@ export const createMirrorTwinsLayoutStore = (): MirrorTwinsLayoutStore => {
 // TODO hardcoded or parameterized?
 const SOURCE_IMAGE_HEIGHT_PCT = 0.5;
 
-const computeLayout = (image: ImageInfo, width: number, height: number): MirrorTwinsLayout => {
+const computeLayout = (image: ImageInfo, width: number, height: number): Mirror_TwinsLayout => {
 	if (image.width === null) {
 		throw Error(`Cannot compute layout with unloaded image data: ${image.name}`);
 	}

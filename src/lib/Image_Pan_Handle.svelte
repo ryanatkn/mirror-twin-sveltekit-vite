@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type {ImageHandlesState} from './imageHandlesStore';
+	import type {Image_HandlesState} from './image_handles_store';
 
-	export let handles: ImageHandlesState;
+	export let handles: Image_HandlesState;
 	export let startPanning: (e: MouseEvent) => void;
 	export let hover: () => void;
 	export let unhover: () => void;
 
 	$: style = calcStyle(handles);
 
-	const calcStyle = (handles: ImageHandlesState): string => {
+	const calcStyle = (handles: Image_HandlesState): string => {
 		const width = handles.x2 - handles.x1;
 		const height = handles.y2 - handles.y1;
 		const x = handles.x1;

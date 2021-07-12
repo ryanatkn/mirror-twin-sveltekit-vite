@@ -4,17 +4,17 @@ import type {Writable, Readable} from 'svelte/store';
 
 // TODO rename this to something like `RectSelection`?
 
-export interface ImageHandlesStore {
-	subscribe: Writable<ImageHandlesState>['subscribe'];
-	move: (movements: ImageHandleMovement[]) => void;
+export interface Image_HandlesStore {
+	subscribe: Writable<Image_HandlesState>['subscribe'];
+	move: (movements: Image_HandleMovement[]) => void;
 }
 
 export type ImageXHandleName = 'x1' | 'x2';
 export type ImageYHandleName = 'y1' | 'y2';
-export type ImageHandleName = ImageXHandleName | ImageYHandleName;
+export type Image_HandleName = ImageXHandleName | ImageYHandleName;
 
 // These dimensions are scaled to rendered screen coordinates.
-export interface ImageHandlesState {
+export interface Image_HandlesState {
 	width: number;
 	height: number;
 	x1: number;
@@ -24,20 +24,20 @@ export interface ImageHandlesState {
 	// TODO xMidpoint: number;
 }
 
-export type ImageHandleMovement = [ImageHandleName, number]; // number is a delta
+export type Image_HandleMovement = [Image_HandleName, number]; // number is a delta
 
 // TODO refactor..? how? seems kinda hacky with the derived store usage
-export const createImageHandlesStore = <
+export const createImage_HandlesStore = <
 	TDimensions extends Readable<{width: number; height: number}>,
 >(
 	dimensions: TDimensions,
-): ImageHandlesStore => {
+): Image_HandlesStore => {
 	// TODO this is a hack - the store should be derived from movements, right?
-	let setHandles: (handles: ImageHandlesState) => void;
+	let setHandles: (handles: Image_HandlesState) => void;
 	let maxWidth: number;
 	let maxHeight: number;
-	let currentHandles: ImageHandlesState;
-	const {subscribe} = derived<TDimensions, ImageHandlesState>(
+	let currentHandles: Image_HandlesState;
+	const {subscribe} = derived<TDimensions, Image_HandlesState>(
 		dimensions,
 		($dimensions, set) => {
 			setHandles = set; // TODO hack - see above

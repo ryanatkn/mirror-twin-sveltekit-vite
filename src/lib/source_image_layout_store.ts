@@ -1,15 +1,15 @@
 import {derived} from 'svelte/store';
 import type {Readable} from 'svelte/store';
 
-import type {MirrorTwinsLayoutStore} from './mirrorTwinsLayoutStore';
+import type {Mirror_TwinsLayoutStore} from './mirror_twins_layout_store';
 
-export interface SourceImageLayoutStore {
-	subscribe: Readable<null | SourceImageLayout>['subscribe'];
+export interface Source_ImageLayoutStore {
+	subscribe: Readable<null | Source_ImageLayout>['subscribe'];
 }
 
 // Except for wrapperWidth and wrapperHeight,
 // these dimensions are scaled to rendered screen coordinates.
-export interface SourceImageLayout {
+export interface Source_ImageLayout {
 	scale: number;
 	width: number;
 	height: number;
@@ -27,10 +27,10 @@ const PADDING_RIGHT = HANDLE_SIZE / 2;
 const PADDING_TOP = BUTTON_SIZE + HANDLE_SIZE / 2;
 const PADDING_BOTTOM = 0;
 
-export const createSourceImageLayoutStore = (
-	layout: MirrorTwinsLayoutStore,
-): SourceImageLayoutStore => {
-	const {subscribe} = derived<MirrorTwinsLayoutStore, SourceImageLayout | null>(
+export const createSource_ImageLayoutStore = (
+	layout: Mirror_TwinsLayoutStore,
+): Source_ImageLayoutStore => {
+	const {subscribe} = derived<Mirror_TwinsLayoutStore, Source_ImageLayout | null>(
 		layout,
 		($layout) => {
 			if (!$layout) return null;

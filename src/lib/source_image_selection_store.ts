@@ -1,15 +1,15 @@
 import {derived} from 'svelte/store';
 import type {Readable} from 'svelte/store';
 
-import type {SourceImageLayoutStore} from './sourceImageLayoutStore';
-import type {ImageHandlesStore} from './imageHandlesStore';
+import type {Source_ImageLayoutStore} from './source_image_layout_store';
+import type {Image_HandlesStore} from './image_handles_store';
 
-export interface SourceImageSelectionStore {
-	subscribe: Readable<null | SourceImageSelection>['subscribe'];
+export interface Source_ImageSelectionStore {
+	subscribe: Readable<null | Source_ImageSelection>['subscribe'];
 }
 
 // These dimensions are with respect to the unscaled image.
-export interface SourceImageSelection {
+export interface Source_ImageSelection {
 	width: number;
 	height: number;
 	x1: number;
@@ -18,13 +18,13 @@ export interface SourceImageSelection {
 	y2: number;
 }
 
-export const createSourceImageSelectionStore = (
-	sourceImageLayout: SourceImageLayoutStore,
-	handles: ImageHandlesStore,
-): SourceImageSelectionStore => {
+export const createSource_ImageSelectionStore = (
+	sourceImageLayout: Source_ImageLayoutStore,
+	handles: Image_HandlesStore,
+): Source_ImageSelectionStore => {
 	const {subscribe} = derived<
-		[SourceImageLayoutStore, ImageHandlesStore],
-		SourceImageSelection | null
+		[Source_ImageLayoutStore, Image_HandlesStore],
+		Source_ImageSelection | null
 	>([sourceImageLayout, handles], ([$sourceImageLayout, $handles]) => {
 		if (!$sourceImageLayout) return null;
 		const {scale} = $sourceImageLayout;

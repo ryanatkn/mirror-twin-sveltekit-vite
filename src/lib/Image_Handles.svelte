@@ -1,18 +1,18 @@
 <script lang="ts">
-	import ImageHandle from './ImageHandle.svelte';
-	import ImageSideHandle from './ImageSideHandle.svelte';
-	import ImagePanHandle from './ImagePanHandle.svelte';
-	import ImagePanButtons from './ImagePanButtons.svelte';
+	import Image_Handle from './Image_Handle.svelte';
+	import Image_Side_Handle from './Image_Side_Handle.svelte';
+	import Image_Pan_Handle from './Image_Pan_Handle.svelte';
+	import Image_Pan_Buttons from './Image_Pan_Buttons.svelte';
 	import type {
-		ImageHandlesState,
+		Image_HandlesState,
 		ImageXHandleName,
 		ImageYHandleName,
-		ImageHandleName,
-		ImageHandleMovement,
-	} from './imageHandlesStore';
+		Image_HandleName,
+		Image_HandleMovement,
+	} from './image_handles_store';
 
-	export let handles: ImageHandlesState; // TODO what are the tradeoffs of making this a store?
-	export let moveHandles: (movements: ImageHandleMovement[]) => void;
+	export let handles: Image_HandlesState; // TODO what are the tradeoffs of making this a store?
+	export let moveHandles: (movements: Image_HandleMovement[]) => void;
 	export let containerWidth: number;
 	export let containerHeight: number;
 
@@ -28,8 +28,8 @@
 	let panning = false;
 	let activeXHandle: ImageXHandleName | null = null;
 	let activeYHandle: ImageYHandleName | null = null;
-	let activeSideHandle: ImageHandleName | null = null;
-	let hoveringSideHandle: ImageHandleName | null = null;
+	let activeSideHandle: Image_HandleName | null = null;
+	let hoveringSideHandle: Image_HandleName | null = null;
 	let hoveringPanHandle = false;
 	let lastClientX: number | null = null;
 	let lastClientY: number | null = null;
@@ -39,7 +39,7 @@
 	// and a generic "resize" function is more difficult to write cleanly,
 	// and we don't want to pass down 9 resize and 5 pan functions as props...
 	const pan = (dx: number, dy: number): void => {
-		let movements: ImageHandleMovement[] | null = null;
+		let movements: Image_HandleMovement[] | null = null;
 		if (dx) {
 			if (dy) {
 				movements = [
@@ -81,7 +81,7 @@
 		lastClientX = e.clientX;
 		lastClientY = e.clientY;
 	};
-	const startDraggingSide = (e: MouseEvent, handle: ImageHandleName): void => {
+	const startDraggingSide = (e: MouseEvent, handle: Image_HandleName): void => {
 		dragging = true;
 		activeSideHandle = handle;
 		lastClientX = e.clientX;
@@ -130,10 +130,10 @@
 			lastClientY = e.clientY;
 		}
 	};
-	const hoverSideHandle = (sideHandle: ImageHandleName): void => {
+	const hoverSideHandle = (sideHandle: Image_HandleName): void => {
 		hoveringSideHandle = sideHandle;
 	};
-	const unhoverSideHandle = (_sideHandle: ImageHandleName): void => {
+	const unhoverSideHandle = (_sideHandle: Image_HandleName): void => {
 		hoveringSideHandle = null;
 	};
 </script>
@@ -141,14 +141,14 @@
 <svelte:window on:mouseup={stopDragging} on:mousemove={onMouseMove} on:mouseleave={stopDragging} />
 
 <div class="image-handles">
-	<ImagePanHandle
+	<Image_Pan_Handle
 		{handles}
 		{startPanning}
 		hover={() => (hoveringPanHandle = true)}
 		unhover={() => (hoveringPanHandle = false)}
 	/>
-	<ImagePanButtons {panLeft} {panRight} {panUp} {panDown} />
-	<ImageSideHandle
+	<Image_Pan_Buttons {panLeft} {panRight} {panUp} {panDown} />
+	<Image_Side_Handle
 		handle={'x1'}
 		{handles}
 		{size}
@@ -158,7 +158,7 @@
 		hover={hoverSideHandle}
 		unhover={unhoverSideHandle}
 	/>
-	<ImageSideHandle
+	<Image_Side_Handle
 		handle={'x2'}
 		{handles}
 		{size}
@@ -168,7 +168,7 @@
 		hover={hoverSideHandle}
 		unhover={unhoverSideHandle}
 	/>
-	<ImageSideHandle
+	<Image_Side_Handle
 		handle={'y1'}
 		{handles}
 		{size}
@@ -178,7 +178,7 @@
 		hover={hoverSideHandle}
 		unhover={unhoverSideHandle}
 	/>
-	<ImageSideHandle
+	<Image_Side_Handle
 		handle={'y2'}
 		{handles}
 		{size}
@@ -188,7 +188,7 @@
 		hover={hoverSideHandle}
 		unhover={unhoverSideHandle}
 	/>
-	<ImageHandle
+	<Image_Handle
 		xHandle={'x1'}
 		yHandle={'y1'}
 		{handles}
@@ -200,7 +200,7 @@
 			activeSideHandle === 'y1'}
 		hovering={hoveringPanHandle || hoveringSideHandle === 'x1' || hoveringSideHandle === 'y1'}
 	/>
-	<ImageHandle
+	<Image_Handle
 		xHandle={'x2'}
 		yHandle={'y1'}
 		{handles}
@@ -212,7 +212,7 @@
 			activeSideHandle === 'y1'}
 		hovering={hoveringPanHandle || hoveringSideHandle === 'x2' || hoveringSideHandle === 'y1'}
 	/>
-	<ImageHandle
+	<Image_Handle
 		xHandle={'x1'}
 		yHandle={'y2'}
 		{handles}
@@ -224,7 +224,7 @@
 			activeSideHandle === 'y2'}
 		hovering={hoveringPanHandle || hoveringSideHandle === 'x1' || hoveringSideHandle === 'y2'}
 	/>
-	<ImageHandle
+	<Image_Handle
 		xHandle={'x2'}
 		yHandle={'y2'}
 		{handles}

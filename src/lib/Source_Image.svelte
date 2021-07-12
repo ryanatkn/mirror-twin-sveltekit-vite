@@ -1,7 +1,7 @@
 <script lang="ts">
-	import ImageHandles from './ImageHandles.svelte';
-	import type {ImageHandleMovement, ImageHandlesState} from './imageHandlesStore';
-	import type {ImageInfo} from './imagesStore';
+	import Image_Handles from './Image_Handles.svelte';
+	import type {Image_HandleMovement, Image_HandlesState} from './image_handles_store';
+	import type {ImageInfo} from './images_store';
 
 	export let image: ImageInfo;
 	export let width: number;
@@ -10,13 +10,13 @@
 	export let left: number;
 	export let top: number;
 
-	// TODO probably refactor this, renaming the component and making `SourceImage` just the image
+	// TODO probably refactor this, renaming the component and making `Source_Image` just the image
 
-	// TODO it seems this information should live in `ImageHandles`,
+	// TODO it seems this information should live in `Image_Handles`,
 	// but we need it to calculate `bgRects`
 	// .. so should the handles component expose its own data to this parent? or should it remain "controlled"
-	export let handles: ImageHandlesState;
-	export let moveHandles: (movements: ImageHandleMovement[]) => void;
+	export let handles: Image_HandlesState;
+	export let moveHandles: (movements: Image_HandleMovement[]) => void;
 
 	// Emphasize the cropped area by partially obscuring the excluded image area.
 	// It's probably better to do this with svg, but 4 divs is fine.
@@ -64,7 +64,7 @@
 			height: {bgRect.height}px;"
 		/>
 	{/each}
-	<ImageHandles {handles} {moveHandles} containerWidth={width} containerHeight={height} />
+	<Image_Handles {handles} {moveHandles} containerWidth={width} containerHeight={height} />
 </div>
 
 <style>
