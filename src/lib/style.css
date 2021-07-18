@@ -19,6 +19,6 @@ body {
 	font-size: 20px;
 }
 
-#svelte {
+#root {
 	height: 100%;
 }
