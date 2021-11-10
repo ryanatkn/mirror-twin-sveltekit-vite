@@ -1,5 +1,8 @@
 # mirror-twin-sveltekit-vite
 
+> **!!attention!!** Gro no longer supports an alternative frontend build system to SvelteKit,
+> so this comparison is no longer valid, and the projects have been archived
+
 > play with image
 > [bilateral symmetry](https://en.wikipedia.org/wiki/Symmetry_in_biology#Bilateral_symmetry),
 > with a focus on faces 😑
